@@ -1,5 +1,91 @@
 package com.example.TallerParcialSpringBootJPA.entities;
 
-public class Comentarios {
+import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "comentarios")
+public class Comentarios {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_comentario")
+    private Integer idComentario;
+    
+    @Column(name = "comentario", nullable = false, columnDefinition = "TEXT")
+    private String comentario;
+    
+    @Column(name = "fecha", nullable = false)
+    private LocalDateTime fecha;
+    
+    // Relaciones
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto", nullable = false)
+    private Producto producto;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
+    
+    // Constructores
+    public Comentarios() {
+        this.fecha = LocalDateTime.now();
+    }
+    
+    public Comentarios(String comentario, Producto producto, Usuario usuario) {
+        this.comentario = comentario;
+        this.producto = producto;
+        this.usuario = usuario;
+        this.fecha = LocalDateTime.now();
+    }
+    
+    // Getters y Setters
+    public Integer getIdComentario() {
+        return idComentario;
+    }
+    
+    public void setIdComentario(Integer idComentario) {
+        this.idComentario = idComentario;
+    }
+    
+    public String getComentario() {
+        return comentario;
+    }
+    
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+    
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+    
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+    
+    public Producto getProducto() {
+        return producto;
+    }
+    
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
