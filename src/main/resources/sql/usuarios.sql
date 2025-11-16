@@ -1,10 +1,10 @@
--- Insertar usuarios con contraseñas encriptadas (BCrypt) - password123 para todos
+-- Insertar usuarios con contraseñas encriptadas (BCrypt) - contraseñas específicas para cada usuario
 INSERT INTO usuarios (id_usuario, nombre, correo_electronico, contrasena, direccion, metodo_de_pago) VALUES
-(1, 'Juan Pérez', 'juan.perez@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Carrera 45 #10-20', 'Tarjeta de crédito'),
-(2, 'Ana Gómez', 'ana.gomez@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Calle 21 #35-50', 'PayPal'),
-(3, 'Carlos Ruiz', 'carlos.ruiz@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Avenida Principal #100', 'Transferencia bancaria'),
-(4, 'Sofía Martínez', 'sofia.martinez@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Calle 8 #20-30', 'Efectivo'),
-(5, 'Diego Fernández', 'diego.fernandez@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Carrera 77 #40-60', 'Tarjeta débito'),
+(1, 'Juan Pérez', 'juan.perez@email.com', '$2a$10$Lm7ywlyxllHX7kySFkUsgecWLpuMNDJ3U/mj33Wqs5DNaEchbH54m', 'Carrera 45 #10-20', 'Tarjeta de crédito'),
+(2, 'Ana Gómez', 'ana.gomez@email.com', '$2a$10$hdHVcGmUyP95X/n.Uq5iHOAx5lNBmWDydgTWO9syXfZ.MUZ7EEP3K', 'Calle 21 #35-50', 'PayPal'),
+(3, 'Carlos Ruiz', 'carlos.ruiz@email.com', '$2a$10$0i/3P9ys4v78Cow19mkLDev6s9aejSlzCdBDoG3EH6gEPLE5Y4vLG', 'Avenida Principal #100', 'Transferencia bancaria'),
+(4, 'Sofía Martínez', 'sofia.martinez@email.com', '$2a$10$nZ9tgm3jx3RD2dTl/QHYjuIG14f.OTdg68maSyi6crGRMVnj9a1s6', 'Calle 8 #20-30', 'Efectivo'),
+(5, 'Diego Fernández', 'diego.fernandez@email.com', '$2a$10$rkogwfEJMKeT2xhRWQNiT.5/iiSFRoaaFFRIKoEUu5KfPT6fmpZku', 'Carrera 77 #40-60', 'Tarjeta débito'),
 (6, 'Lucía Rodríguez', 'lucia.rodriguez@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Calle 15 #25-35', 'Tarjeta de crédito'),
 (7, 'Andrés Ramírez', 'andres.ramirez@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Carrera 30 #50-70', 'PayPal'),
 (8, 'María García', 'maria.garcia@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeOALO8SkE0Vz3Rxt7Gb2QTH3h4H7Y3cW', 'Avenida 80 #45-65', 'Transferencia bancaria'),
