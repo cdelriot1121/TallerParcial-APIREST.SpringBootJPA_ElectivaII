@@ -63,7 +63,7 @@ CREATE TABLE comentarios (
     id_producto INT NOT NULL,
     id_usuario INT NOT NULL,
     comentario TEXT NOT NULL,
-    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha VARCHAR(20) NOT NULL DEFAULT '2024-01-01',
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
