@@ -2,6 +2,8 @@ package com.example.TallerParcialSpringBootJPA.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,17 +39,20 @@ public class Producto {
     private Integer stock;
     
     // Relaciones
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
     
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Comentarios> comentarios;
     
     @ManyToMany(mappedBy = "productos")
+    @JsonIgnore
     private List<CarritoCompras> carritos;
     
     @ManyToMany(mappedBy = "productos")
+    @JsonIgnore
     private List<OrdenCompra> ordenes;
     
     // Constructores

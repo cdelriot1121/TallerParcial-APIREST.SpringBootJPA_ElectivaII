@@ -2,6 +2,8 @@ package com.example.TallerParcialSpringBootJPA.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,6 +43,7 @@ public class OrdenCompra {
         joinColumns = @JoinColumn(name = "id_orden"),
         inverseJoinColumns = @JoinColumn(name = "id_producto")
     )
+    @JsonIgnoreProperties({"comentarios", "carritos", "ordenes"})
     private List<Producto> productos;
     
     // Constructores
