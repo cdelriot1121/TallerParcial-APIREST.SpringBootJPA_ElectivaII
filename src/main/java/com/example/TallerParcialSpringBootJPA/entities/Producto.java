@@ -30,7 +30,7 @@ public class Producto {
     @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
     
-    @Column(name = "precio", nullable = false, precision = 10, scale = 2)
+    @Column(name = "precio", nullable = false)
     private Double precio;
     
     @Column(name = "stock", nullable = false)

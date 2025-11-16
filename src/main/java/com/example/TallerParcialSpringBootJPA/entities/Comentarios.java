@@ -1,7 +1,5 @@
 package com.example.TallerParcialSpringBootJPA.entities;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,8 +22,8 @@ public class Comentarios {
     @Column(name = "comentario", nullable = false, columnDefinition = "TEXT")
     private String comentario;
     
-    @Column(name = "fecha", nullable = false)
-    private LocalDateTime fecha;
+    @Column(name = "fecha", nullable = false, length = 20)
+    private String fecha;
     
     // Relaciones
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,14 +36,21 @@ public class Comentarios {
     
     // Constructores
     public Comentarios() {
-        this.fecha = LocalDateTime.now();
+        this.fecha = "2024-01-01";
     }
     
     public Comentarios(String comentario, Producto producto, Usuario usuario) {
         this.comentario = comentario;
         this.producto = producto;
         this.usuario = usuario;
-        this.fecha = LocalDateTime.now();
+        this.fecha = "2024-01-01";
+    }
+    
+    public Comentarios(String comentario, Producto producto, Usuario usuario, String fecha) {
+        this.comentario = comentario;
+        this.producto = producto;
+        this.usuario = usuario;
+        this.fecha = fecha;
     }
     
     // Getters y Setters
@@ -65,11 +70,11 @@ public class Comentarios {
         this.comentario = comentario;
     }
     
-    public LocalDateTime getFecha() {
+    public String getFecha() {
         return fecha;
     }
     
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
     

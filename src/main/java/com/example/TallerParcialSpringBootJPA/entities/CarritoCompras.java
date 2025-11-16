@@ -23,10 +23,10 @@ public class CarritoCompras {
     @Column(name = "id_carrito")
     private Integer idCarrito;
     
-    @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
+    @Column(name = "subtotal", nullable = false)
     private Double subtotal;
     
-    @Column(name = "impuestos", nullable = false, precision = 10, scale = 2)
+    @Column(name = "impuestos", nullable = false)
     private Double impuestos;
     
     // Relaciones

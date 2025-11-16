@@ -22,16 +22,16 @@ public class OrdenCompra {
     @Column(name = "id_orden")
     private Integer idOrden;
     
-    @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
+    @Column(name = "subtotal", nullable = false)
     private Double subtotal;
     
-    @Column(name = "impuestos", nullable = false, precision = 10, scale = 2)
+    @Column(name = "impuestos", nullable = false)
     private Double impuestos;
     
-    @Column(name = "envio", nullable = false, precision = 10, scale = 2)
+    @Column(name = "envio", nullable = false)
     private Double envio;
     
-    @Column(name = "total", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total", nullable = false)
     private Double total;
     
     // Relaciones
