@@ -8,7 +8,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:8080/api",
+			"value": "http://localhost:8080",
 			"type": "string"
 		},
 		{
@@ -50,11 +50,12 @@
 							"raw": "{\n    \"correoElectronico\": \"juan.perez@email.com\",\n    \"contraseña\": \"password123\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/signin",
+							"raw": "{{baseUrl}}/api/auth/signin",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"auth",
 								"signin"
 							]
@@ -76,11 +77,12 @@
 							"raw": "{\n    \"nombre\": \"Test User\",\n    \"correoElectronico\": \"test@email.com\",\n    \"contraseña\": \"password123\",\n    \"direccion\": \"Test Address\",\n    \"metodoDePago\": \"Tarjeta de crédito\"\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/signup",
+							"raw": "{{baseUrl}}/api/auth/signup",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"auth",
 								"signup"
 							]
@@ -98,11 +100,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/productos/listar?stockMaximo=20",
+							"raw": "{{baseUrl}}/api/productos/listar?stockMaximo=20",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"productos",
 								"listar"
 							],
@@ -126,11 +129,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/comentarios/listar?fechaDesde=2024-01-01",
+							"raw": "{{baseUrl}}/api/comentarios/listar?fechaDesde=2024-01-01",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"comentarios",
 								"listar"
 							],
@@ -159,11 +163,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/carrito/crear",
+							"raw": "{{baseUrl}}/api/carrito/crear",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"carrito",
 								"crear"
 							]
@@ -189,11 +194,12 @@
 							"raw": "{\n    \"idProducto\": 1,\n    \"cantidad\": 2\n}"
 						},
 						"url": {
-							"raw": "{{baseUrl}}/carrito/1/agregar-producto",
+							"raw": "{{baseUrl}}/api/carrito/1/agregar-producto",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"carrito",
 								"1",
 								"agregar-producto"
@@ -212,11 +218,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/carrito/1/productos",
+							"raw": "{{baseUrl}}/api/carrito/1/productos",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"carrito",
 								"1",
 								"productos"
@@ -235,11 +242,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/carrito/mis-carritos",
+							"raw": "{{baseUrl}}/api/carrito/mis-carritos",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"carrito",
 								"mis-carritos"
 							]
@@ -262,11 +270,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/productos/todos",
+							"raw": "{{baseUrl}}/api/productos/todos",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"productos",
 								"todos"
 							]
@@ -284,11 +293,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/productos/1",
+							"raw": "{{baseUrl}}/api/productos/1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"productos",
 								"1"
 							]
@@ -311,11 +321,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/usuarios/perfil",
+							"raw": "{{baseUrl}}/api/usuarios/perfil",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
+								"api",
 								"usuarios",
 								"perfil"
 							]
