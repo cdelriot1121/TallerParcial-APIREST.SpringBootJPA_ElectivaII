@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.TallerParcialSpringBootJPA.entities.CarritoCompras;
+import com.example.TallerParcialSpringBootJPA.entities.CarritoProducto;
 import com.example.TallerParcialSpringBootJPA.entities.Producto;
 import com.example.TallerParcialSpringBootJPA.entities.Usuario;
+import com.example.TallerParcialSpringBootJPA.repository.CarritoProductoRepository;
 import com.example.TallerParcialSpringBootJPA.repository.CarritoRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class CarritoService {
     
     @Autowired
     private CarritoRepository carritoRepository;
+    
+    @Autowired
+    private CarritoProductoRepository carritoProductoRepository;
     
     @Autowired
     private ProductoService productoService;
@@ -80,29 +85,42 @@ public class CarritoService {
                 
                 // Verificar stock disponible
                 if (producto.getStock() >= cantidad) {
-                    // Descontar del stock
-                    if (productoService.descontarStock(idProducto, cantidad)) {
-                        // Agregar al carrito
-                        if (carrito.getProductos() == null) {
-                            carrito.setProductos(new ArrayList<>());
+                    // Verificar si el producto ya está en el carrito
+                    Optional<CarritoProducto> carritoProductoExistente = 
+                        carritoProductoRepository.findByCarritoIdCarritoAndProductoIdProducto(idCarrito, idProducto);
+                    
+                    if (carritoProductoExistente.isPresent()) {
+                        // El producto ya existe, actualizar cantidad
+                        CarritoProducto carritoProducto = carritoProductoExistente.get();
+                        Integer nuevaCantidad = carritoProducto.getCantidad() + cantidad;
+                        
+                        // Verificar que hay suficiente stock para la nueva cantidad
+                        if (producto.getStock() >= nuevaCantidad - carritoProducto.getCantidad()) {
+                            carritoProducto.setCantidad(nuevaCantidad);
+                            carritoProductoRepository.save(carritoProducto);
+                            
+                            // Descontar solo la cantidad adicional del stock
+                            productoService.descontarStock(idProducto, cantidad);
+                            System.out.println("Cantidad actualizada para producto existente: " + nuevaCantidad);
+                        } else {
+                            System.out.println("Stock insuficiente para actualizar cantidad");
+                            return false;
                         }
-                        
-                        // Agregar el producto la cantidad de veces especificada
-                        for (int i = 0; i < cantidad; i++) {
-                            carrito.getProductos().add(producto);
-                        }
-                        
-                        // Recalcular totales
-                        calcularTotales(carrito);
-                        
-                        // Guardar el carrito
-                        CarritoCompras carritoGuardado = carritoRepository.save(carrito);
-                        System.out.println("Carrito guardado con " + carritoGuardado.getProductos().size() + " productos");
-                        
-                        return true;
                     } else {
-                        System.out.println("No se pudo descontar el stock del producto: " + idProducto);
+                        // Producto nuevo, crear nueva entrada
+                        CarritoProducto carritoProducto = new CarritoProducto(carrito, producto, cantidad);
+                        carritoProductoRepository.save(carritoProducto);
+                        
+                        // Descontar del stock
+                        productoService.descontarStock(idProducto, cantidad);
+                        System.out.println("Nuevo producto agregado al carrito con cantidad: " + cantidad);
                     }
+                    
+                    // Recalcular totales
+                    calcularTotales(carrito);
+                    carritoRepository.save(carrito);
+                    
+                    return true;
                 } else {
                     System.out.println("Stock insuficiente. Stock disponible: " + producto.getStock() + ", cantidad solicitada: " + cantidad);
                 }
@@ -118,24 +136,31 @@ public class CarritoService {
     
     @Transactional(readOnly = true)
     public List<Producto> listarProductosDelCarrito(Integer idCarrito, Integer idUsuario) {
-        Optional<CarritoCompras> carritoOpt = carritoRepository.findByIdCarritoAndUsuarioIdUsuario(idCarrito, idUsuario);
-        if (carritoOpt.isPresent()) {
-            CarritoCompras carrito = carritoOpt.get();
-            List<Producto> productos = carrito.getProductos();
-            System.out.println("Carrito " + idCarrito + " tiene " + (productos != null ? productos.size() : 0) + " productos");
-            return productos != null ? productos : new ArrayList<>();
+        List<CarritoProducto> carritoProductos = carritoProductoRepository.findByCarritoIdCarritoAndUsuarioId(idCarrito, idUsuario);
+        List<Producto> productos = new ArrayList<>();
+        
+        for (CarritoProducto cp : carritoProductos) {
+            // Agregar el producto tantas veces como indique la cantidad
+            for (int i = 0; i < cp.getCantidad(); i++) {
+                productos.add(cp.getProducto());
+            }
         }
-        System.out.println("Carrito no encontrado: " + idCarrito + " para usuario: " + idUsuario);
-        return new ArrayList<>();
+        
+        System.out.println("Carrito " + idCarrito + " tiene " + carritoProductos.size() + 
+                           " tipos de productos diferentes, total items: " + productos.size());
+        return productos;
     }
     
     private void calcularTotales(CarritoCompras carrito) {
         double subtotal = 0.0;
-        if (carrito.getProductos() != null) {
-            for (Producto producto : carrito.getProductos()) {
-                subtotal += producto.getPrecio();
-            }
+        
+        // Usar la nueva relación CarritoProducto
+        List<CarritoProducto> carritoProductos = carritoProductoRepository.findByCarritoIdCarrito(carrito.getIdCarrito());
+        
+        for (CarritoProducto cp : carritoProductos) {
+            subtotal += cp.getProducto().getPrecio() * cp.getCantidad();
         }
+        
         carrito.setSubtotal(subtotal);
         carrito.setImpuestos(subtotal * 0.19); // 19% de impuestos
     }

@@ -72,6 +72,7 @@ CREATE TABLE comentarios (
 CREATE TABLE carrito_productos (
     id_carrito INT,
     id_producto INT,
+    cantidad INT NOT NULL DEFAULT 1,
     PRIMARY KEY (id_carrito, id_producto),
     FOREIGN KEY (id_carrito) REFERENCES carritos_compras(id_carrito),
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
