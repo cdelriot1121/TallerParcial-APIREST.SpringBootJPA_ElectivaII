@@ -2,6 +2,9 @@ package com.example.TallerParcialSpringBootJPA.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,16 +34,22 @@ public class CarritoCompras {
     private Double impuestos;
     
     // Relaciones
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonIgnoreProperties({"carritos", "comentarios", "contraseña"})
     private Usuario usuario;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CarritoProducto> carritoProductos;
+    
+    // Mantenemos esta relación para compatibilidad (deprecated)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "carrito_productos",
         joinColumns = @JoinColumn(name = "id_carrito"),
         inverseJoinColumns = @JoinColumn(name = "id_producto")
     )
+    @JsonIgnoreProperties({"comentarios", "carritos", "ordenes"})
     private List<Producto> productos;
     
     // Constructores
@@ -90,5 +100,13 @@ public class CarritoCompras {
     
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
+    }
+    
+    public List<CarritoProducto> getCarritoProductos() {
+        return carritoProductos;
+    }
+    
+    public void setCarritoProductos(List<CarritoProducto> carritoProductos) {
+        this.carritoProductos = carritoProductos;
     }
 }

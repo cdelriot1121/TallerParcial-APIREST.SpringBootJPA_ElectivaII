@@ -47,7 +47,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"correoElectronico\": \"juan.perez@email.com\",\n    \"contraseña\": \"password123\"\n}"
+							"raw": "{\n    \"correoElectronico\": \"juan.perez@email.com\",\n    \"contraseña\": \"Qwerty123\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/auth/signin",

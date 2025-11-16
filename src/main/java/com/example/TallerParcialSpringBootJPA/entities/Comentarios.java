@@ -1,5 +1,7 @@
 package com.example.TallerParcialSpringBootJPA.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,10 +30,12 @@ public class Comentarios {
     // Relaciones
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_producto", nullable = false)
+    @JsonIgnoreProperties({"comentarios", "carritos", "ordenes"})
     private Producto producto;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonIgnoreProperties({"carritos", "ordenes", "contraseña"})
     private Usuario usuario;
     
     // Constructores
